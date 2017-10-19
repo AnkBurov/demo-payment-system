@@ -12,6 +12,9 @@ class Account(
         @GeneratedValue
         val id: Long? = null,
 
+        @Version
+        val version: Long? = null,
+
         val accountNumber: String,
 
         @Enumerated(EnumType.STRING)

@@ -38,7 +38,7 @@ class PaymentServiceImpl(
             try {
                 docTypeLifeCycleService.changeDocStatus(payment, DocStatus.CONFIRMED) { executeTransaction(it)}
             } catch (e: Exception) {
-                LOG.warn("Declining payment for because of: ", e)
+                LOG.warn("Declining payment because of: ", e)
                 docTypeLifeCycleService.changeDocStatus(payment, DocStatus.DECLINED) { declineTransaction(it)}
             }
         }
