@@ -1,0 +1,5 @@
+version: '2.1'
+
+services:
+    demo-payment-system:
+        image: 'demo-payment-system'

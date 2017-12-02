@@ -17,6 +17,8 @@ plugins {
     id 'org.springframework.boot' version '1.5.8.RELEASE'
     id "com.palantir.docker" version "0.13.0"
     id "com.palantir.docker-run" version "0.13.0"
+    id "com.palantir.docker-compose" version "0.13.0"
+
 }
 
 apply plugin: 'java'
@@ -34,14 +36,14 @@ repositories {
 }
 
 docker {
-    name "${project.name}:${version}"
+    name "${project.name}"
     files "build/libs/"
     dependsOn build
 }
 
 dockerRun {
     name "${project.name}"
-    image "${project.name}:${version}"
+    image "${project.name}"
     ports "8091:8080"
 }
 
