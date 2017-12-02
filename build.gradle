@@ -15,6 +15,8 @@ plugins {
     id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.8.1'
     id 'org.springframework.boot' version '1.5.8.RELEASE'
+    id "com.palantir.docker" version "0.13.0"
+    id "com.palantir.docker-run" version "0.13.0"
 }
 
 apply plugin: 'java'
@@ -29,6 +31,18 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+docker {
+    name "${project.name}:${version}"
+    files "build/libs/"
+    dependsOn build
+}
+
+dockerRun {
+    name "${project.name}"
+    image "${project.name}:${version}"
+    ports "8091:8080"
 }
 
 dependencies {
@@ -63,3 +77,6 @@ sourceSets {
 task wrapper(type: Wrapper) {
     gradleVersion = '3.4'
 }
+
+project.tasks["dockerRemoveContainer"].dependsOn "dockerStop"
+project.tasks["dockerRun"].dependsOn "docker", "dockerRemoveContainer"
